@@ -19,13 +19,26 @@
 
 #include <iostream>
 
+
+std::string NextLetter(const std::string& input_string) {
+  std::string output_string;
+  for (int i = 0; i < input_string.size(); i++) {
+    if (input_string[i] == 'z') {
+      output_string += 'a';
+    } else if (input_string[i] == 'Z'){
+      output_string += 'A';
+    } else {
+      output_string += input_string[i] + 1;
+    }
+  }
+  return output_string;
+}
+
 int main(int argc, char *argv[]){
   std::string input_string = argv[1];
   std::string output_string;
 
-  for (int i = 0; i < input_string.size(); i++) {
-    output_string += input_string[i] + 1;
-  }
-
+  output_string = NextLetter(input_string);
+  
   std::cout << output_string << std::endl;
 }
