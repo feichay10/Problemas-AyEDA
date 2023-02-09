@@ -22,9 +22,11 @@
 #include <vector>
 
 float AverageNumbers(int items, std::vector<float>items_contain) {
+  float result = 0;
   for (int i = 0; i < items; i++) {
-    
+    result += items_contain[i];
   }
+  return result / items;
 }
 
 int main(int argc, char* argv[]) {
