@@ -1,12 +1,19 @@
 /**
- *  @file Problema_1.cc
+ * @file Problema_1.cc
+ * @author your name (you@domain.com)
+ * @brief
+ * @version 0.1
+ * @date 2023-06-28
+ *
+ * @copyright Copyright (c) 2023
+ *
  */
 
 // 1. Escribe un procedimiento en C++ que ordene la primera mitad de la
-// secuencia o vector por el método de selección de menor a mayor, luego ordene
-// la segunda mitad también por el método de inserción, pero de mayor a menor, y
-// finalmente mezcle ambas mitades de forma que el vector quede ordenado de
-// mayor a menor ordenada.
+// vectoruencia o vector por el método de selección de menor a mayor, luego
+// ordene la segunda mitad también por el método de inserción, pero de mayor a
+// menor, y finalmente mezcle ambas mitades de forma que el vector quede
+// ordenado de mayor a menor ordenada.
 
 #include <iostream>
 #include <vector>
@@ -52,11 +59,11 @@ void Ordenation(std::vector<int> &vector, int size) {
 }
 
 void Mezcla(std::vector<int> &vector, int half) {
-  int i = half;     // i va desde el centro hasta 0
-  int j = half + 1; // j va desde el centro + 1 hasta el final
+  int i = half;      // i va desde el centro hasta 0
+  int j = half + 1;  // j va desde el centro + 1 hasta el final
   std::vector<int> aux(vector.size() + 1);
-  
-  for (int k = 0; i <= vector.size(); k++) {
+
+  for (int k = 0; j <= vector.size(); k++) {
     if (vector[i] > vector[j]) {
       aux[k] = vector[i];
       i--;
@@ -73,7 +80,7 @@ void Mezcla(std::vector<int> &vector, int half) {
 
 void printVector(std::vector<int> &vector, int size) {
   std::cout << "\n\nVector ordenado: " << std::endl;
-  for (int i = 0; i < size; i++) {
+  for (int i = 0; i < vector.size(); i++) {
     std::cout << vector[i] << " ";
   }
 }
