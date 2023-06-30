@@ -3,7 +3,7 @@ void Insertion(std::vector<int> vector, int size) {
         int aux = vector[i];
         int j = i + 1;
         while (j >= 0 && vector[j] > aux) {
-            vector[j + 1] = vector[j];
+            vector[j + 1] = aux;
             j--;
         }
         vector[j + 1] = aux;
@@ -12,7 +12,7 @@ void Insertion(std::vector<int> vector, int size) {
 
 void Selection(std::vector<int> vector, int size) {
     int min;
-    for (int i = 0; i < size; i++) {
+    for(int i = 0; i < size; i++) {
         min = i;
         for (int j = i + 1; j < size; j++) {
             if (vector[j] < vector[min]) {
@@ -28,7 +28,7 @@ void QuickSort(std::vector<int> vector, int ini, int fin) {
     int f = fin;
     int piv = vector[(i + f) / 2];
 
-    while (i <= f) {
+    while(i <= f) {
         while (vector[i] < piv) i++;
         while (vector[f] > piv) f--;
         if (i <= f) {
@@ -39,6 +39,15 @@ void QuickSort(std::vector<int> vector, int ini, int fin) {
     }
     if (ini < f) QuickSort(vector, ini, f);
     if (i < fin) QuickSort(vector, i, fin);
+}
+
+void MergeSort(std::vector<int> vector, int ini, int fin) {
+    if (ini < fin) {
+        int cen = (ini + fin) / 2;
+        MergeSort(vector, ini, cen);
+        MergeSort(vector, cen + 1, fin);
+        Mix(vector, ini, cen, fin);
+    }
 }
 
 void Mix(std::vector<int> vector, int ini, int cen, int fin) {
@@ -57,6 +66,27 @@ void Mix(std::vector<int> vector, int ini, int cen, int fin) {
     }
 
     for (int k = ini; k <= fin; k++) {
-        vector[aux] = aux[k];
+        vector[k] = aux[k];
+    }
+}
+
+void ShellSort(std::vector<int> vector, int size) {
+    unsigned delta = size;
+    while (delta > 1) {
+        delta = delta / 2;
+        DeltaSort(vector, size, delta);
+    }
+}
+
+void DeltaSort(std::vector<int> vector, int size, int delta) {
+    int aux;
+    for (int i = delta, i < size; i++) {
+        aux = vector[i];
+        int j = i;
+        while (j >= delta && vector[j - delta] > aux) {
+            vector[j] = vector[j - delta];
+            j = j - delta;
+        }
+        vector[j] = aux;
     }
 }

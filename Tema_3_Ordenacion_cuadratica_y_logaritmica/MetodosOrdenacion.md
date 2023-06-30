@@ -57,7 +57,7 @@ void QuickSort(std::vector<int> vector, int ini, int fin) {
 void MergeSort(std::vector<int> vector, int ini, int fin) {
     if (ini < fin) {
         int cen = (ini + cen) / 2;
-        MergeSort(vector, ini, cent);       // Subsecuencia 1: izquierda
+        MergeSort(vector, ini, cen);       // Subsecuencia 1: izquierda
         MergeSort(vector, cen + 1, fin);    // Subsecuencia 2: derecha
         Mix(vector, ini, cen, fin);
     }
@@ -81,6 +81,30 @@ void Mix(std::vector<int> vector, int ini, int cen, int fin) {
     // Copia al vector original
     for (int k = ini; k <= fin; k++) {
         vector[k] = aux[k];
+    }
+}
+```
+
+## ShellSort
+```c++
+void ShellSort(std::vector<int> vector, int size) {
+    unsigned delta = size;
+    while (delta > 1) {
+        delta = delta / 2;
+        DeltaSort(vector, size, delta);
+    }
+}
+
+void DeltaSort(std::vector<int> vector, int size, int delta) {
+    int aux;
+    for (int i = delta; i < size; i++) {
+        aux = vector[i];
+        int j = i;
+        while (j >= delta && vector[j - delta] > aux) {
+            vector[j] = vector[j - delta];
+            j = j - delta;
+        }
+        vector[j] = aux;
     }
 }
 ```
