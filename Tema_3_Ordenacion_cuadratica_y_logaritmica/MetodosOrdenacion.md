@@ -72,7 +72,7 @@ void shakeSort(std::vector<int> vector, int size) {
 
 ## QuickSort
 ```c++
-void QuickSort(std::vector<int> vector, int ini, int fin) {
+void QuickSort(std::vector<int> &vector, int ini, int fin) {
     int i = ini;
     int f = fin;
     int piv = vector[(i + f) / 2];
@@ -94,7 +94,7 @@ void QuickSort(std::vector<int> vector, int ini, int fin) {
 ```c++
 void MergeSort(std::vector<int> vector, int ini, int fin) {
     if (ini < fin) {
-        int cen = (ini + cen) / 2;
+        int cen = (ini + fin) / 2;
         MergeSort(vector, ini, cen);       // Subsecuencia 1: izquierda
         MergeSort(vector, cen + 1, fin);    // Subsecuencia 2: derecha
         Mix(vector, ini, cen, fin);
@@ -103,7 +103,7 @@ void MergeSort(std::vector<int> vector, int ini, int fin) {
 
 void Mix(std::vector<int> vector, int ini, int cen, int fin) {
     int i = ini;
-    int j = cent + 1;
+    int j = cen + 1;
     std::vector<int> aux(fin + 1);
 
     for (int k = ini; k <= fin; k++) {

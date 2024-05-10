@@ -1,3 +1,6 @@
+#include <iostream> 
+#include <vector>
+
 // Insertion:
 // 44  55  12  42  94  18  06  67  i = 1
 // 44  55  12  42  94  18  06  67  i = 2
@@ -53,7 +56,7 @@
 // Entero-------------------------------------------
 // Mezclado:  [06  12  18  42  44  55  67  94]
 
-void insertion (std::vector<int> vector, int size) {
+void insertion(std::vector<int> vector, int size) {
     for (int i = 1; i < size; i++) {
         int aux = vector[i];
         int j = i - 1;
@@ -61,7 +64,7 @@ void insertion (std::vector<int> vector, int size) {
             vector[j + 1] = vector[j];
             j--;
         }
-        vector[j + 1] = vector[j];
+        vector[j + 1] = aux;
     }
 }
 
@@ -69,11 +72,57 @@ void selection (std::vector<int> vector, int size) {
     int min;
     for (int i = 0; i < size; i++) {
         min = i;
-        for (int j = i + 1, i < size; j++) {
+        for (int j = i + 1; j < size; j++) {
             if (vector[j] < vector[min]) {
                 min = j;
             }
         }
         std::swap(vector[i], vector[min]);
+    }
+}
+
+void QuickSort(std::vector<int> vector, int ini, int fin) {
+    int i = ini;
+    int f = fin;
+    int piv = vector[(i + f) / 2];
+    while (i <= f) {
+        while (vector[i] < piv) i++;
+        while (vector[f] > piv) f--;
+        if (i <= f) {
+            std::swap(vector[i], vector[f]);
+            i++;
+            f--;
+        }
+    }
+    if (ini < f) QuickSort(vector, ini, f);
+    if (i < fin) QuickSort(vector, i, fin);
+}
+
+void MergeSort(std::vector<int> vector, int ini, int fin) {
+    if (ini < fin) {
+        int cen = (ini + fin) / 2;
+        MergeSort(vector, ini, cen);
+        MergeSort(vector, cen + 1, fin);
+        Mix(vector, ini, cen, fin);
+    }
+}
+
+void Mix(std::vector<int> vector, int ini, int cen, int fin) {
+    int i = ini;
+    int j = cen + 1;
+    std::vector<int> aux(fin + 1);
+
+    for (int k = ini; k < fin; k++) {
+        if (i <= cen && (j > fin || vector[i] < vector[j])) {
+            aux[k] = vector[i];
+            i++;
+        } else {
+            aux[k] = vector[j];
+            j++;
+        }
+    }
+
+    for (int k = ini; k <= fin; k++) {
+        vector[k] = aux[k];
     }
 }
