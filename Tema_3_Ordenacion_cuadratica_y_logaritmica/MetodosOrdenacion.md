@@ -134,9 +134,8 @@ void ShellSort(std::vector<int> vector, int size) {
 }
 
 void DeltaSort(std::vector<int> vector, int size, int delta) {
-    int aux;
     for (int i = delta; i < size; i++) {
-        aux = vector[i];
+        int aux = vector[i];
         int j = i;
         while (j >= delta && vector[j - delta] > aux) {
             vector[j] = vector[j - delta];

@@ -9,20 +9,19 @@
  *
  */
 
+#include <iostream>
+#include <vector>
+
 // 1. Escribe un procedimiento en C++ que ordene la primera mitad de la
-// vectoruencia o vector por el método de selección de menor a mayor, luego
+// secuencia o vector por el método de selección de menor a mayor, luego
 // ordene la segunda mitad también por el método de inserción, pero de mayor a
 // menor, y finalmente mezcle ambas mitades de forma que el vector quede
 // ordenado de mayor a menor ordenada.
 
-#include <iostream>
-#include <vector>
-
 void Ordenation(std::vector<int> &vector, int size) {
-  int min, aux;
+  ///< Primera mitad seleccion 
+  int min;
   int mitad = size / 2;
-
-  ///< Primera parte, Selecction de menor a mayor
   for (int i = 0; i < mitad; i++) {
     min = i;
     for (int j = i + 1; j < mitad; j++) {
@@ -38,7 +37,7 @@ void Ordenation(std::vector<int> &vector, int size) {
     std::cout << vector[i] << " ";
   }
 
-  ///< Segunda parte, Insertion de mayor a menor
+  ///< Segunda mitad insercion
   for (int i = mitad; i < size; i++) {
     int aux = vector[i];
     int j = i - 1;
@@ -55,16 +54,16 @@ void Ordenation(std::vector<int> &vector, int size) {
   }
 }
 
-void Mezcla(std::vector<int> &vector, int half) {
-  int i = half;      // i va desde el centro hasta 0
-  int j = half + 1;  // j va desde el centro + 1 hasta el final
+void Mezcla(std::vector<int> &vector, int centro) {
+  int i = centro;
+  int j = centro + 1;
   std::vector<int> aux(vector.size() + 1);
 
-  for (int k = 0; j <= vector.size(); k++) {
+  for (int k = 0; i <= vector.size(); k++) {
     if (vector[i] > vector[j]) {
       aux[k] = vector[i];
       i--;
-    } else {
+    } else { 
       aux[k] = vector[j];
       j++;
     }
@@ -75,17 +74,13 @@ void Mezcla(std::vector<int> &vector, int half) {
   }
 }
 
-void printVector(std::vector<int> &vector, int size) {
-  std::cout << "\n\nVector ordenado: " << std::endl;
-  for (int i = 0; i < vector.size(); i++) {
-    std::cout << vector[i] << " ";
-  }
-}
-
 int main() {
   std::vector<int> vect = {44, 55, 12, 42, 94, 18, 6, 67};
 
   Ordenation(vect, vect.size());
   Mezcla(vect, (vect.size() / 2) - 1);
-  printVector(vect, vect.size());
+  std::cout << "\n\nSecuencia final: " << std::endl;
+  for (int i = 0; i < vect.size(); i++) {
+    std::cout << vect[i] << " ";
+  }
 }

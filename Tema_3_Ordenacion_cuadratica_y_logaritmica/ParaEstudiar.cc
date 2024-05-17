@@ -60,7 +60,7 @@ void insertion(std::vector<int> vector, int size) {
     for (int i = 1; i < size; i++) {
         int aux = vector[i];
         int j = i - 1;
-        while ((j >= 0) && (vector[j] > aux)) {
+        while ((j >= 0) && (vector[i] > aux)) {
             vector[j + 1] = vector[j];
             j--;
         }
@@ -68,7 +68,7 @@ void insertion(std::vector<int> vector, int size) {
     }
 }
 
-void selection (std::vector<int> vector, int size) {
+void selection(std::vector<int> vector, int size) {
     int min;
     for (int i = 0; i < size; i++) {
         min = i;
@@ -81,7 +81,7 @@ void selection (std::vector<int> vector, int size) {
     }
 }
 
-void QuickSort(std::vector<int> vector, int ini, int fin) {
+void QuickSort(std::vector<int> &vector, int ini, int fin) {
     int i = ini;
     int f = fin;
     int piv = vector[(i + f) / 2];
@@ -98,7 +98,7 @@ void QuickSort(std::vector<int> vector, int ini, int fin) {
     if (i < fin) QuickSort(vector, i, fin);
 }
 
-void MergeSort(std::vector<int> vector, int ini, int fin) {
+void MergeSort(std::vector<int> &vector, int ini, int fin) {
     if (ini < fin) {
         int cen = (ini + fin) / 2;
         MergeSort(vector, ini, cen);
@@ -107,12 +107,11 @@ void MergeSort(std::vector<int> vector, int ini, int fin) {
     }
 }
 
-void Mix(std::vector<int> vector, int ini, int cen, int fin) {
+void Mix(std::vector<int> &vector, int ini, int cen, int fin) {
     int i = ini;
     int j = cen + 1;
     std::vector<int> aux(fin + 1);
-
-    for (int k = ini; k < fin; k++) {
+    for (int k = ini; k <= fin; k++) {
         if (i <= cen && (j > fin || vector[i] < vector[j])) {
             aux[k] = vector[i];
             i++;
@@ -124,5 +123,25 @@ void Mix(std::vector<int> vector, int ini, int cen, int fin) {
 
     for (int k = ini; k <= fin; k++) {
         vector[k] = aux[k];
+    }
+}
+
+void DeltaSort(std::vector<int> vector, int size) {
+    unsigned int delta = size;
+    while (delta > 1) {
+        delta = delta / 2;
+        DeltaSort(vector, size, delta);
+    }
+}
+
+void DeltaSort(std::vector<int> vector, int size, int delta) {
+    for (int i = delta; i < size; i++) {
+        int aux = vector[i];
+        int j = i;
+        while((j >= delta) && (vector[j - delta] > aux)) {
+            vector[j] = vector[j - delta];
+            j = j - delta;
+        }
+        vector[j] = aux;
     }
 }
