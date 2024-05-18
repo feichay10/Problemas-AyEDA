@@ -32,6 +32,32 @@ void Selection(std::vector<int> vector, int size) {
 }
 ```
 
+## ShakeSort
+```c++
+void ShakeSort(std::vector<int> vector, int size) {
+    int start = 1;
+    int end = size - 1;
+    int cam = size;
+    while (start <= end) {
+        for (int i = end; i >= start; i--) {
+            if (vector[i] < vector[i - 1]) {
+                std::swap(vector[i - 1], vector[i]);
+                cam = i;
+            }
+        }
+        start = cam + 1;
+        for (int i = start; i <= end; i++) {
+            if (vector[i] < vector[i - 1]) {
+                std::swap(vector[i - 1], vector[i]);
+                cam = i;
+            }
+        }
+        end = cam - 1;
+    
+    }
+}
+```
+
 ## BubbleSort
 ```c++
 void (std::vector<int> vector, int size) {

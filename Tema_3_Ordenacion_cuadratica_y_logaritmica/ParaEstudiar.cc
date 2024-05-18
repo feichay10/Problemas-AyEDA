@@ -1,74 +1,19 @@
 #include <iostream> 
 #include <vector>
 
-// Insertion:
-// 44  55  12  42  94  18  06  67  i = 1
-// 44  55  12  42  94  18  06  67  i = 2
-// 12  44  55  42  94  18  06  67  i = 3
-// 12  42  44  55  94  18  06  67  i = 4
-// 12  42  44  55  94  18  06  67  i = 5
-// 12  18  42  44  55  94  06  67  i = 6
-// 06  12  18  42  44  55  94  67  i = 7
-// 06  12  18  42  44  55  67  94  i = 8
-
-// Selection:
-// i = 0 // 44  55  12  42  94  18  06  67  // j = 6
-// i = 1 // 06  12  55  42  94  18  44  67  // j = 2
-// i = 2 // 06  12  18  42  94  55  44  67  // j = 5
-// i = 3 // 06  12  18  42  94  55  44  67  // j = 3
-// i = 4 // 06  12  18  42  44  55  94  67  // j = 6
-// i = 5 // 06  12  18  42  44  55  94  67  // j = 5
-// i = 6 // 06  12  18  42  44  55  67  94  // j = 7
-// i = 7 // 06  12  18  42  44  55  67  94  // 
-
-// ShakeSort:
-//     44  55  12  42  94  18  06  67
-// ->  44  12  42  55  18  06  67  94  ->
-// <-  06  44  12  42  55  18  67  94  ->
-// ->  06  12  42  44  55  18  67  94  ->
-// <-  06  12  18  42  44  55  67  94  <-
-// --- 06  12  18  42  44  55  67  94 ---
-
-// QuickSort:
-//  44  55  12  42  94  18  06  67  |  PIV = (0 + 7) / 2 = 3; PIV = 42
-//  06  55  12  42  94  18  44  67  |  i = 0 - i = 6
-//  06  18  12  42  94  55  44  67  |  i = 1 - i = 5
-//  06  18  12  42  94  55  44  67  |  PIV = 18 | i = 1 - i = 2
-//  06  12  18  42  94  55  44  67  |  PIV = 55 | i = 4 - i = 7
-//  06  12  18  42  44  55  67  94  |  i = 4 - i = 6
-
-// MergeSort:
-// Secuencia:  44  55  12  42  94  18  06  67
-// Izquierda----------------------------------------
-// Division:  [44  55  12  42]  [94  18  06  67]
-// Division:  [44  55] [12  42]  [94  18  06  67]
-// Mezclado:  [44  55] [12  42]  [94  18  06  67]
-// Division:  [44  55] [12][42]  [94  18  06  67]
-// Mezclado:  [44  55] [12  42]  [94  18  06  67]
-// Mezclado:  [12  42  44  55]  [94  18  06  67]
-// Derecha------------------------------------------
-// Division:  [12  42  44  55]  [94  18]  [06  67]
-// Division:  [12  42  44  55]  [94] [18]  [06  67]
-// Mezclado:  [12  42  44  55]  [18  94]  [06  67]
-// Division:  [12  42  44  55]  [18  94]  [06]  [67]
-// Mezclado:  [12  42  44  55]  [18  94]  [06  67]
-// Mezclado:  [12  42  44  55]  [06  18  67  94]
-// Entero-------------------------------------------
-// Mezclado:  [06  12  18  42  44  55  67  94]
-
-void insertion(std::vector<int> vector, int size) {
+void insertion(std::vector<int> &vector, int size) {
     for (int i = 1; i < size; i++) {
         int aux = vector[i];
-        int j = i - 1;
-        while ((j >= 0) && (vector[i] > aux)) {
+        int j = j - 1;
+        while ((j >= 0) && (vector[j] > aux)) {
             vector[j + 1] = vector[j];
             j--;
         }
-        vector[j + 1] = aux;
+        vector[j + 1] = vector[j];
     }
 }
 
-void selection(std::vector<int> vector, int size) {
+void selection(std::vector<int> &vector, int size) {
     int min;
     for (int i = 0; i < size; i++) {
         min = i;
@@ -85,9 +30,9 @@ void QuickSort(std::vector<int> &vector, int ini, int fin) {
     int i = ini;
     int f = fin;
     int piv = vector[(i + f) / 2];
-    while (i <= f) {
-        while (vector[i] < piv) i++;
-        while (vector[f] > piv) f--;
+    while(i <= f) {
+        while(vector[i] < piv) i++;
+        while(vector[f] > piv) f--;
         if (i <= f) {
             std::swap(vector[i], vector[f]);
             i++;
@@ -111,7 +56,8 @@ void Mix(std::vector<int> &vector, int ini, int cen, int fin) {
     int i = ini;
     int j = cen + 1;
     std::vector<int> aux(fin + 1);
-    for (int k = ini; k <= fin; k++) {
+
+    for(int k = ini; k <= fin; k++) {
         if (i <= cen && (j > fin || vector[i] < vector[j])) {
             aux[k] = vector[i];
             i++;
@@ -126,9 +72,9 @@ void Mix(std::vector<int> &vector, int ini, int cen, int fin) {
     }
 }
 
-void DeltaSort(std::vector<int> vector, int size) {
+void ShellSort(std::vector<int> &vector, int size) {
     unsigned int delta = size;
-    while (delta > 1) {
+    while (delta) {
         delta = delta / 2;
         DeltaSort(vector, size, delta);
     }
@@ -138,7 +84,7 @@ void DeltaSort(std::vector<int> vector, int size, int delta) {
     for (int i = delta; i < size; i++) {
         int aux = vector[i];
         int j = i;
-        while((j >= delta) && (vector[j - delta] > aux)) {
+        while ((j > delta) && (vector[j - delta] > aux)) {
             vector[j] = vector[j - delta];
             j = j - delta;
         }
