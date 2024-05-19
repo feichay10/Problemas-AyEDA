@@ -1,6 +1,7 @@
 # Codigos de Ordenacion
 
 ## Insertion
+Algoritmo cuadrático que recorre la secuencia de izquierda a derecha, insertando cada elemento en su posición correcta. Tiene complejidad O(n^2).
 ```c++
 void Insertion(std::vector<int> vector, int size) {
     for (int i = 1; i < size; i++) {
@@ -16,6 +17,8 @@ void Insertion(std::vector<int> vector, int size) {
 ```
 
 ## Selection
+Algoritmo cuadrático que busca el mínimo (o máximo) y lo intercambia con el primer elemento.
+Tiene complejidad O(n^2).
 ```c++
 void Selection(std::vector<int> vector, int size) {
     int min; // Puede ser max
@@ -26,52 +29,14 @@ void Selection(std::vector<int> vector, int size) {
                 min = j;
             }
         }
-        // Intercambio de elementos
         std::swap(vector[i], vector[min]);
     }
 }
 ```
 
-## ShakeSort
-```c++
-void ShakeSort(std::vector<int> vector, int size) {
-    int start = 1;
-    int end = size - 1;
-    int cam = size;
-    while (start <= end) {
-        for (int i = end; i >= start; i--) {
-            if (vector[i] < vector[i - 1]) {
-                std::swap(vector[i - 1], vector[i]);
-                cam = i;
-            }
-        }
-        start = cam + 1;
-        for (int i = start; i <= end; i++) {
-            if (vector[i] < vector[i - 1]) {
-                std::swap(vector[i - 1], vector[i]);
-                cam = i;
-            }
-        }
-        end = cam - 1;
-    
-    }
-}
-```
-
-## BubbleSort
-```c++
-void (std::vector<int> vector, int size) {
-    for (int i = 0; i < size - 1; i++) {
-        for (int j = 0; j < size - i - 1; j++) {
-        if (vector[j] > vector[j + 1]) {
-            std::swap(vector[j], vector[j + 1]);
-        }
-        }
-    }
-}
-```
-
 ### ShakeSort
+Algoritmo de ordenación que mejora el algoritmo de la burbuja, intercambiando elementos de izquierda a derecha y de derecha a izquierda.
+Tiene complejidad O(n^2).
 ```c++
 void shakeSort(std::vector<int> vector, int size) {
     int start = 1;
@@ -97,6 +62,8 @@ void shakeSort(std::vector<int> vector, int size) {
 ```
 
 ## QuickSort
+Algoritmo divide y vencerás que selecciona un pivote y divide la secuencia en dos subsecuencias, ordenándolas recursivamente.
+Tiene complejidad O(n log n).
 ```c++
 void QuickSort(std::vector<int> &vector, int ini, int fin) {
     int i = ini;
@@ -117,6 +84,8 @@ void QuickSort(std::vector<int> &vector, int ini, int fin) {
 ```
 
 ## MergeSort
+Algoritmo divide y vencerás que divide la secuencia en dos subsecuencias, ordenándolas recursivamente y mezclándolas.
+Tiene complejidad O(n log n).
 ```c++
 void MergeSort(std::vector<int> vector, int ini, int fin) {
     if (ini < fin) {
@@ -150,6 +119,9 @@ void Mix(std::vector<int> vector, int ini, int cen, int fin) {
 ```
 
 ## ShellSort
+Mejora del algoritmo de ordenamiento por inserción que permite intercambiar 
+elementos lejanos para que la lista se ordene más rápidamente.
+Tiene complejidad O(n log n).
 ```c++
 void ShellSort(std::vector<int> vector, int size) {
     unsigned delta = size;
@@ -171,3 +143,12 @@ void DeltaSort(std::vector<int> vector, int size, int delta) {
     }
 }
 ```
+
+## HeapSort
+Algoritmo de ordenación que utiliza una estructura de datos de arbol binario para ordenar los elementos.
+Usa un heap binario para almacenar los elementos y extraer el máximo (o mínimo) en cada iteración.
+Tiene complejidad O(n log n).
+
+## RadixSort
+Algoritmo de ordenación que ordena los elementos por dígitos, de menor a mayor peso.
+Tiene complejidad O(n k), siendo k el número de dígitos.

@@ -51,34 +51,7 @@ void Ordenation(std::vector<int> &vector, int size) {
     }
   }
 
-  std::cout << BOLD << "\nQuickSort iteración: " << RESET << std::endl;
-  printVector(vector, size);
-
-  ///< Primera subsecuencia con Insercion
-  std::cout << BOLD << "\nPrimera subsecuencia" << RESET << std::endl;
-  for (int k = 1; k <= f; k++) {
-    int aux = vector[k];
-    int j = k;
-    while((j >= 0) && (vector[j - 1] > aux)) {
-      vector[j] = vector[j - 1];
-      j--;
-    }
-    vector[j] = aux;
-  }
-  printVector(vector, size);
-
-  ///> Segunda subsecuencia seleccion
-  std::cout << BOLD << "\nSegunda subsecuencia" << RESET << std::endl;
-  int min;
-  for (int k = i; i < size - 1; i++) {
-    min = k;
-    for (int j = k + 1; k < size; k++) {
-      if (vector[j] < vector[min]) {
-        min = j;
-      }
-    }
-    std::swap(vector[i], vector[min]);
-  }
+  std::cout << "Primera iteración: " << std::endl;
   printVector(vector, size);
 }
 
@@ -88,7 +61,7 @@ int main() {
   std::cout << RED_BOLD << "Secuencia original: " << RESET << std::endl;
   printVector(vect, vect.size());
 
-  Ordenation(vect, vect.size());
+  // Ordenation(vect, vect.size());
 
   std::cout << GREEN_BOLD << "\n\nSecuencia final: " << RESET << std::endl;
   printVector(vect, vect.size());
